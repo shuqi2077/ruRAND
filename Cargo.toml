@@ -12,6 +12,7 @@
 [package]
 edition = "2024"
 name = "ruRAND"
+exclude = ["/.cargo_vcs_info.json"]
 version.workspace = true
 authors = ["nathanielsimard <nathaniel.simard.42@gmail.com>"]
 build = false
@@ -86,9 +87,11 @@ default-features = false
 
 [dependencies.ruda-core]
 path = "../ruda-core"
+version = "0.1.0"
 default-features = false
 
 [dependencies.ruda-kernel]
 path = "../ruda-kernel"
+version = "0.1.0"
 default-features = false
 features = ["frontend", "library"]
