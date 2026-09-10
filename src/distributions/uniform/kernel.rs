@@ -1,6 +1,6 @@
 use super::*;
 
-#[cube]
+#[ruda]
 impl PrngRuntime for Uniform {
     fn inner_loop<E: Numeric, N: Size>(
         args: Uniform,

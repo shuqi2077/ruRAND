@@ -1,7 +1,7 @@
-use ruda_kernel::dsl as cubecl;
+use ruda_kernel::dsl as kernel_dsl;
 use ruda_kernel::dsl::prelude::*;
 use ruda_kernel::library::tensor::View;
-use ruda_kernel::dsl::CubeType;
+use ruda_kernel::dsl::RudaType;
 use ruda_kernel::dsl::Runtime;
 
 use crate::RandomFamily;
@@ -11,7 +11,7 @@ use super::{
     to_unit_interval_closed_open,
 };
 
-#[derive(CubeLaunch, CubeType)]
+#[derive(RudaLaunch, RudaType)]
 pub(crate) struct Bernoulli {
     probability: f32,
 }

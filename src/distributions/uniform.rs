@@ -1,4 +1,4 @@
-use ruda_kernel::dsl as cubecl;
+use ruda_kernel::dsl as kernel_dsl;
 use ruda_kernel::dsl::prelude::*;
 use ruda_kernel::library::tensor::View;
 
@@ -8,7 +8,7 @@ use crate::{
 
 use super::{PrngArgs, PrngRuntime, random};
 
-#[derive(CubeLaunch, CubeType)]
+#[derive(RudaLaunch, RudaType)]
 pub(crate) struct Uniform {
     lower_bound: f32,
     upper_bound: f32,

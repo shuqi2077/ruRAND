@@ -1,5 +1,5 @@
-use ruda_kernel::dsl as cubecl;
-use ruda_kernel::dsl::CubeDim;
+use ruda_kernel::dsl as kernel_dsl;
+use ruda_kernel::dsl::RudaDim;
 use ruda_test_runtime::TestRuntime;
 use ruda_kernel::dsl::prelude::*;
 use rurand::*;
@@ -13,8 +13,8 @@ fn values_open_interval() {
 
     kernel_to_unit_interval_oo::launch::<TestRuntime>(
         &client,
-        CubeCount::Static(1, 1, 1),
-        CubeDim::new_1d(2),
+        RudaCount::Static(1, 1, 1),
+        RudaDim::new_1d(2),
         unsafe { ArrayArg::from_raw_parts(input, 2) },
         unsafe { ArrayArg::from_raw_parts(output.clone(), 2) },
     );
@@ -41,12 +41,12 @@ fn values_open_interval() {
     );
 }
 
-#[cube(launch)]
+#[ruda(launch)]
 pub(crate) fn kernel_to_unit_interval_co(input: &Array<u32>, output: &mut Array<f32>) {
     output[ABSOLUTE_POS] = to_unit_interval_closed_open(input[ABSOLUTE_POS]);
 }
 
-#[cube(launch)]
+#[ruda(launch)]
 pub(crate) fn kernel_to_unit_interval_oo(input: &Array<u32>, output: &mut Array<f32>) {
     output[ABSOLUTE_POS] = to_unit_interval_open(input[ABSOLUTE_POS]);
 }
@@ -60,8 +60,8 @@ fn values_closed_open_interval() {
 
     kernel_to_unit_interval_co::launch::<TestRuntime>(
         &client,
-        CubeCount::Static(1, 1, 1),
-        CubeDim::new_1d(2),
+        RudaCount::Static(1, 1, 1),
+        RudaDim::new_1d(2),
         unsafe { ArrayArg::from_raw_parts(input, 2) },
         unsafe { ArrayArg::from_raw_parts(output.clone(), 2) },
     );

@@ -13,7 +13,7 @@ pub(crate) static SEED: Mutex<Option<HostRng>> = Mutex::new(None);
 /// The seeding flow is: `Backend::seed()` stores a `FlexRng` in `SEED`. Random
 /// ops (`float_random`, `int_random`) call `SEED.lock().take()`, consuming it for
 /// that op and falling back to this function for subsequent calls. This function
-/// delegates to burn_std's own entropy source.
+/// delegates to ruda_core's own entropy source.
 pub(crate) fn get_seeded_rng() -> HostRng {
     ruda_core::rand::get_seeded_rng()
 }

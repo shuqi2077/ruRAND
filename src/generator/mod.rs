@@ -1,4 +1,4 @@
-use ruda_kernel::dsl as cubecl;
+use ruda_kernel::dsl as kernel_dsl;
 use ruda_kernel::dsl::prelude::*;
 use ruda_kernel::library::tensor::View;
 use ruda_kernel::library::tensor::layout::Coords1d;
@@ -18,8 +18,8 @@ pub(crate) fn random<F: RandomFamily, R: Runtime>(
     let seeds = get_seeds();
     let args = prng.args();
 
-    let cube_dim = CubeDim::new(client.properties(), output.size().div_ceil(N_VALUES_PER_THREAD));
-    let cube_count = prng_cube_count(output.size(), cube_dim, N_VALUES_PER_THREAD);
+    let ruda_dim = RudaDim::new(client.properties(), output.size().div_ceil(N_VALUES_PER_THREAD));
+    let ruda_count = prng_ruda_count(output.size(), ruda_dim, N_VALUES_PER_THREAD);
 
     let output_vector_size = 1;
     // TODO: Higher vectorization can add some correlation locally.
@@ -36,8 +36,8 @@ pub(crate) fn random<F: RandomFamily, R: Runtime>(
 
     prng_kernel::launch::<F, R>(
         client,
-        cube_count,
-        cube_dim,
+        ruda_count,
+        ruda_dim,
         address_type,
         output_vector_size,
         output,
@@ -53,13 +53,13 @@ pub(crate) fn random<F: RandomFamily, R: Runtime>(
     Ok(())
 }
 
-fn prng_cube_count(num_elems: usize, cube_dim: CubeDim, n_values_per_thread: usize) -> CubeCount {
+fn prng_ruda_count(num_elems: usize, ruda_dim: RudaDim, n_values_per_thread: usize) -> RudaCount {
     let num_threads = f32::ceil(num_elems as f32 / n_values_per_thread as f32);
-    let num_invocations = f32::ceil(num_threads / cube_dim.num_elems() as f32);
-    let cubes_x = f32::ceil(f32::sqrt(num_invocations));
-    let cubes_y = f32::ceil(num_invocations / cubes_x);
+    let num_invocations = f32::ceil(num_threads / ruda_dim.num_elems() as f32);
+    let rudas_x = f32::ceil(f32::sqrt(num_invocations));
+    let rudas_y = f32::ceil(num_invocations / rudas_x);
 
-    CubeCount::Static(cubes_x as u32, cubes_y as u32, 1)
+    RudaCount::Static(rudas_x as u32, rudas_y as u32, 1)
 }
 
 pub(crate) trait PrngArgs: Send + Sync + 'static {
@@ -72,7 +72,7 @@ pub(crate) trait RandomFamily: Send + Sync + 'static + std::fmt::Debug {
     type Runtime: PrngRuntime;
 }
 
-#[cube]
+#[ruda]
 pub(crate) trait PrngRuntime: Send + Sync + 'static + PrngArgs {
     #[allow(clippy::too_many_arguments)]
     fn inner_loop<E: Numeric, N: Size>(

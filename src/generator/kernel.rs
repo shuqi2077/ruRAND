@@ -1,8 +1,8 @@
-use ruda_kernel::dsl as cubecl;
+use ruda_kernel::dsl as kernel_dsl;
 use super::*;
 use ruda_kernel::library::tensor::layout::linear::LinearView;
 
-#[cube(launch, address_type = "dynamic")]
+#[ruda(launch, address_type = "dynamic")]
 pub(super) fn prng_kernel<F: RandomFamily, E: Numeric, N: Size>(
     output: &mut LinearView<Vector<E, N>, ReadWrite>,
     seed_0: u32,
@@ -13,9 +13,9 @@ pub(super) fn prng_kernel<F: RandomFamily, E: Numeric, N: Size>(
     #[comptime] n_values_per_thread: usize,
     #[define(E)] _dtype: StorageType,
 ) {
-    let cube_offset = CUBE_POS * CUBE_DIM as usize;
+    let ruda_offset = RUDA_POS * RUDA_DIM as usize;
 
-    let write_index_base = cube_offset * n_values_per_thread / N::value() + UNIT_POS as usize;
+    let write_index_base = ruda_offset * n_values_per_thread / N::value() + UNIT_POS as usize;
 
     // Truncating position should be fine here, it's no issue if the seed repeats
     #[allow(arithmetic_overflow)]
@@ -30,7 +30,7 @@ pub(super) fn prng_kernel<F: RandomFamily, E: Numeric, N: Size>(
     F::Runtime::inner_loop(
         args,
         write_index_base,
-        CUBE_DIM,
+        RUDA_DIM,
         n_values_per_thread,
         &mut state_0,
         &mut state_1,
