@@ -30,7 +30,7 @@ categories = [
     "algorithms",
 ]
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/shuqi2077/RUDA/tree/main/crates/ruRAND"
+repository = "https://github.com/shuqi2077/RUDA/tree/main/ruRAND"
 
 [features]
 tensor = ["ruda-kernel/device-tensor", "ruda-core/tensor-host-data"]
