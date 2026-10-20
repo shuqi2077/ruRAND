@@ -29,26 +29,26 @@ cargo build --release --locked -p ruRAND --no-default-features --features std,te
 
 ## ドキュメント
 
-- [ユーザーガイド](../../../docs/ja/libraries/rurand.md)
-- [環境設定](../../../docs/ja/getting-started.md)
+- [ユーザーガイド](../../../../docs/ja/libraries/rurand.md)
+- [環境設定](../../../../docs/ja/getting-started.md)
 - [Cargo 機能](../../Cargo.toml) · [モジュール エクスポート](../../src/lib.rs)
 
 ## ruRAND ユーザーガイド
 
-[計算ライブラリ](../../../docs/ja/libraries/README.md) · [ランタイム API](../../../docs/ja/runtime-api.md) · [中文](../zh/README.md)
+[計算ライブラリ](../../../../docs/ja/libraries/README.md) · [ランタイム API](../../../../docs/ja/runtime-api.md) · [中文](../zh/README.md)
 
 ruRAND は、一様分布、正規分布、およびベルヌーイ分布を使用してデバイス テンソルを生成します。 `rurand::tensor` を使用して、新しいテンソルを割り当てるか、クレート ルートにある同じ名前の関数を割り当てて、既存のデバイス ストレージを埋めます。
 
 ### 1. 依存関係を構成する
 
-Cargo パッケージは `ruRAND` です。 Rust インポート名は `rurand` です。機能 `tensor` により、デバイス テンソル インターフェイスが有効になります。この構成では、アプリケーション ディレクトリが `RUDA` ソース ディレクトリの横に配置されます。 NVIDIA のセットアップについては、[はじめに](../../../docs/ja/getting-started.md) を参照してください。
+Cargo パッケージは `ruRAND` です。 Rust インポート名は `rurand` です。機能 `tensor` により、デバイス テンソル インターフェイスが有効になります。この構成では、アプリケーション ディレクトリが `RUDA` ソース ディレクトリの横に配置されます。 NVIDIA のセットアップについては、[はじめに](../../../../docs/ja/getting-started.md) を参照してください。
 
 ```toml
 [dependencies]
-rurand = { package = "ruRAND", path = "../RUDA/ruRAND", default-features = false, features = ["std", "tensor"] }
-ruda-core = { path = "../RUDA/ruda-core", default-features = false, features = ["std", "tensor-host-data"] }
-ruda-kernel = { path = "../RUDA/ruda-kernel", default-features = false, features = ["frontend-std", "device-tensor"] }
-ruda-driver-cuda = { path = "../RUDA/ruda-driver-cuda", default-features = false, features = ["std"] }
+rurand = { package = "ruRAND", path = "../RUDA/crates/ruRAND", default-features = false, features = ["std", "tensor"] }
+ruda-core = { path = "../RUDA/crates/ruda-core", default-features = false, features = ["std", "tensor-host-data"] }
+ruda-kernel = { path = "../RUDA/crates/ruda-kernel", default-features = false, features = ["frontend-std", "device-tensor"] }
+ruda-driver-cuda = { path = "../RUDA/crates/ruda-driver-cuda", default-features = false, features = ["std"] }
 ```
 
 ### 2. ランダム テンソルを生成する

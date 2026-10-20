@@ -29,26 +29,26 @@ cargo build --release --locked -p ruRAND --no-default-features --features std,te
 
 ## Документация
 
-- [Руководство пользователя](../../../docs/ru/libraries/rurand.md)
-- [Настройка среды](../../../docs/ru/getting-started.md)
+- [Руководство пользователя](../../../../docs/ru/libraries/rurand.md)
+- [Настройка среды](../../../../docs/ru/getting-started.md)
 - [Функции Cargo](../../Cargo.toml) · [Экспорт модулей](../../src/lib.rs)
 
 ## ruRAND Руководство пользователя
 
-[Вычислительные библиотеки](../../../docs/ru/libraries/README.md) · [Среда выполнения API](../../../docs/ru/runtime-api.md) · [中文](../zh/README.md)
+[Вычислительные библиотеки](../../../../docs/ru/libraries/README.md) · [Среда выполнения API](../../../../docs/ru/runtime-api.md) · [中文](../zh/README.md)
 
 ruRAND генерирует тензоры устройств с равномерным, нормальным распределением и распределением Бернулли. Используйте `rurand::tensor` для выделения новых тензоров или одноименных функций в корне крейта для заполнения существующей памяти устройства.
 
 ### 1. Настройте зависимости
 
-Пакет Cargo — `ruRAND`; его имя для импорта в Rust — `rurand`. Функция `tensor` включает тензорные интерфейсы устройств. В этой конфигурации каталог приложения размещается рядом с исходным каталогом `RUDA`. См. раздел [Начало работы](../../../docs/ru/getting-started.md) для настройки NVIDIA.
+Пакет Cargo — `ruRAND`; его имя для импорта в Rust — `rurand`. Функция `tensor` включает тензорные интерфейсы устройств. В этой конфигурации каталог приложения размещается рядом с исходным каталогом `RUDA`. См. раздел [Начало работы](../../../../docs/ru/getting-started.md) для настройки NVIDIA.
 
 ```toml
 [dependencies]
-rurand = { package = "ruRAND", path = "../RUDA/ruRAND", default-features = false, features = ["std", "tensor"] }
-ruda-core = { path = "../RUDA/ruda-core", default-features = false, features = ["std", "tensor-host-data"] }
-ruda-kernel = { path = "../RUDA/ruda-kernel", default-features = false, features = ["frontend-std", "device-tensor"] }
-ruda-driver-cuda = { path = "../RUDA/ruda-driver-cuda", default-features = false, features = ["std"] }
+rurand = { package = "ruRAND", path = "../RUDA/crates/ruRAND", default-features = false, features = ["std", "tensor"] }
+ruda-core = { path = "../RUDA/crates/ruda-core", default-features = false, features = ["std", "tensor-host-data"] }
+ruda-kernel = { path = "../RUDA/crates/ruda-kernel", default-features = false, features = ["frontend-std", "device-tensor"] }
+ruda-driver-cuda = { path = "../RUDA/crates/ruda-driver-cuda", default-features = false, features = ["std"] }
 ```
 
 ### 2. Генерация случайных тензоров

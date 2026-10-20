@@ -27,6 +27,6 @@ Default features: `std`.
 
 ## Links
 
-- [Package source](https://github.com/shuqi2077/RUDA/tree/main/ruRAND/host/src)
-- [Cargo manifest](https://github.com/shuqi2077/RUDA/blob/main/ruRAND/host/Cargo.toml)
+- [Package source](https://github.com/shuqi2077/RUDA/tree/main/crates/ruRAND/host/src)
+- [Cargo manifest](https://github.com/shuqi2077/RUDA/blob/main/crates/ruRAND/host/Cargo.toml)
 - [Ruda guide](https://github.com/shuqi2077/RUDA/blob/main/docs/en/libraries/rurand.md)
