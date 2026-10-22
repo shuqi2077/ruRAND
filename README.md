@@ -46,7 +46,7 @@ The Cargo package is `ruRAND`; its Rust import name is `rurand`. Feature `tensor
 rurand = { package = "ruRAND", path = "../RUDA/ruRAND", default-features = false, features = ["std", "tensor"] }
 ruda-core = { path = "../RUDA/ruda-core", default-features = false, features = ["std", "tensor-host-data"] }
 ruda-kernel = { path = "../RUDA/ruda-kernel", default-features = false, features = ["frontend-std", "device-tensor"] }
-ruda-driver-cuda = { path = "../RUDA/ruda-driver-cuda", default-features = false, features = ["std"] }
+ruda-driver-cuda = { path = "../RUDA/ruda-driver/cuda", default-features = false, features = ["std"] }
 ```
 
 ### 2. Generate random tensors
